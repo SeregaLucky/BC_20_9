@@ -1,0 +1,19 @@
+.list {
+  list-style: none;
+  background: cornflowerblue;
+  padding: 10px;
+}
+.item {
+  margin: 0 0 20px 0;
+  background: orange;
+  color: #fff;
+}
+.active {
+  text-align: right;
+  color: green;
+  transition: 2s all;
+}
+
+.active_li {
+  background: coral;
+}
