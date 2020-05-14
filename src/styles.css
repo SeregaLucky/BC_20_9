@@ -18,3 +18,13 @@ body {
    */
   background-image: url('./images/bg-pattern.png');
 }
+
+.siema {
+  padding: 20px 0;
+  background: cornflowerblue;
+}
+.item_siema {
+  list-style: none;
+  background: orange;
+  margin: 0 10px 0 10px;
+}

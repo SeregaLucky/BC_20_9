@@ -1,6 +1,9 @@
 import shortid from 'shortid';
+import logicObj from './logicObj';
 import users from './data';
 import { template } from './servises/templateUsers';
+import templateUsers from './servises/templateUsers.hbs';
+console.log(templateUsers);
 
 const refs = {
   list: document.querySelector('.js_list'),
@@ -9,10 +12,28 @@ const refs = {
   needIdxLi: null,
 };
 
-const allLi = users
-  .map(({ name }) => {
-    const id = shortid.generate();
-    return template(name, id);
+// Получаем ответ с бека и записываем в бизнес логику
+logicObj.addAllUsers(users);
+
+{
+  // const allLi = users
+  //   .map(({ name }) => {
+  //     const id = shortid.generate();
+  //     // return template(name, id);
+  //     const needObj = {
+  //       name: name,
+  //       id,
+  //     };
+  //     // return templateUsers(name, id);
+  //     return templateUsers(needObj);
+  //   })
+  //   .join('');
+}
+
+// Отрисовуем по бизнес логике наших юзеров
+const allLi = logicObj.users
+  .map(item => {
+    return templateUsers(item);
   })
   .join('');
 
@@ -58,13 +79,20 @@ function handleSumbit(e) {
   let inputValue = e.currentTarget.elements.input11.value;
 
   if (refs.isSpan) {
+    logicObj.changeUser({ id: refs.needIdxLi, name: inputValue });
+
     const li = document.querySelector(`li[data-idx="${refs.needIdxLi}"]`);
+
+    if (inputValue === '') {
+      li.remove();
+    }
+
     const span = li.children[0];
     span.textContent = inputValue;
 
     refs.isSpan = false;
     refs.needIdxLi = null;
-    console.log(refs);
+    // console.log(refs);
 
     const findButton = refs.form.querySelector('button');
     findButton.textContent = 'Add';
@@ -74,14 +102,23 @@ function handleSumbit(e) {
     if (findActiveLi) {
       findActiveLi.classList.remove('active_li');
     }
+
+    console.log(logicObj.users);
     return;
   }
 
-  console.log(refs);
+  if (true) {
+    // console.log(refs);
 
-  const id = shortid.generate();
-  const newLi = template(inputValue, id);
-  refs.list.insertAdjacentHTML('beforeend', newLi);
+    const id = shortid.generate();
 
-  e.currentTarget.reset();
+    logicObj.addNewUser({ id, name: inputValue });
+
+    const newLi = templateUsers({ name: inputValue, id });
+    refs.list.insertAdjacentHTML('beforeend', newLi);
+
+    e.currentTarget.reset();
+
+    console.log(logicObj.users);
+  }
 }

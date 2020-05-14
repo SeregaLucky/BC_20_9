@@ -1,3 +1,7 @@
-const dataArr = [{ name: 'Alex' }, { name: 'Tom' }, { name: 'Ania' }];
+const dataArr = [
+  { id: '1', name: 'Alex' },
+  { id: '2', name: 'Tom' },
+  { id: '3', name: 'Ania' },
+];
 
 export default dataArr;
