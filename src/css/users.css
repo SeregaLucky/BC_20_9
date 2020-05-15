@@ -17,3 +17,15 @@
 .active_li {
   background: coral;
 }
+
+.ul_table {
+  display: flex;
+}
+
+.ul_table li {
+  margin: 10px;
+}
+
+/* .li_table {
+  margin: 10px;
+} */
